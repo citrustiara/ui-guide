@@ -18,6 +18,12 @@ Open these files directly in a browser:
 
 For the deck, use left and right arrow keys to move between slides. Add `?qa=1` to hide the navigation bar for screenshots. Add `?qa=1&slide=2` to inspect the second slide directly.
 
+## Screenshots
+
+| Homepage | Deck slide 1 | Deck slide 2 |
+|---|---|---|
+| <img src="preview/home.png" alt="Chunky Pop Poster homepage screenshot" width="260"> | <img src="preview/deck-slide-01.png" alt="Chunky Pop Poster deck slide 1 screenshot" width="260"> | <img src="preview/deck-slide-02.png" alt="Chunky Pop Poster deck slide 2 screenshot" width="260"> |
+
 ## Character
 
 Use this style when the message should feel bold, friendly, playful, and promotional. It is strongest for product drops, creator portfolios, small campaign systems, and expressive presentation openings. It is not intended for dense dashboards or enterprise admin tools.

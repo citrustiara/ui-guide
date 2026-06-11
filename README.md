@@ -7,6 +7,16 @@ This repo is both:
 - **A template/inspiration library for humans**: browse a pack, open the examples, copy the tokens, and adapt the layout.
 - **A lightweight Agent Skill**: agents can load [`SKILL.md`](SKILL.md) to choose the right pack and follow the style constraints.
 
+## Visual showcase
+
+Browse the screenshot gallery in [`SHOWCASE.md`](SHOWCASE.md), including homepage and deck previews for every curated pack.
+
+| Curated example | Traditional vibecoded baseline |
+|---|---|
+| <img src="swiss-grid/preview/home.png" alt="Swiss Grid homepage screenshot" width="340"> | <img src="vibecoded-glassmorphism/preview/home.png" alt="Vibecoded glassmorphism homepage screenshot" width="340"> |
+
+The [`vibecoded-glassmorphism`](vibecoded-glassmorphism/) folder is included only as a comparison baseline. It intentionally uses a generic modern glassmorphism look and does not import any curated pack tokens or styles.
+
 ## Style packs
 
 | Pack | Character | Best for | Start here |
@@ -28,7 +38,10 @@ style-pack/
   tokens.css         # reusable CSS variables, primitives, and utilities
   home.html          # editable web/landing-page example
   example-deck.html  # editable two-slide HTML deck example
+  preview/           # rendered screenshots for gallery/docs
 ```
+
+The comparison baseline follows the same homepage/deck preview convention but is not a selectable style pack.
 
 ## Preview locally
 

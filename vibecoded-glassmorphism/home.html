@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vibecoded Glassmorphism Home</title>
+  <style>
+    :root {
+      --ink: #f8fbff;
+      --muted: rgba(248, 251, 255, 0.72);
+      --faint: rgba(248, 251, 255, 0.14);
+      --line: rgba(255, 255, 255, 0.22);
+      --glass: rgba(255, 255, 255, 0.12);
+      --glass-strong: rgba(255, 255, 255, 0.18);
+      --teal: #53f3d0;
+      --coral: #ff7f6e;
+      --lemon: #f8dd77;
+      --violet: #b88cff;
+      --shadow: rgba(2, 8, 20, 0.42);
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+    }
+
+    body {
+      background:
+        linear-gradient(125deg, #10151f 0%, #163235 28%, #47253c 58%, #65511d 100%);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      background:
+        linear-gradient(115deg, transparent 0 14%, rgba(83, 243, 208, 0.16) 14% 22%, transparent 22% 38%, rgba(255, 127, 110, 0.18) 38% 48%, transparent 48% 70%, rgba(248, 221, 119, 0.12) 70% 78%, transparent 78%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.055) 0 1px, transparent 1px 86px);
+      content: "";
+      inset: 0;
+      opacity: 0.9;
+      pointer-events: none;
+      position: fixed;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      margin: 0 auto;
+      max-width: 1220px;
+      padding: 28px 28px 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 24px 70px var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      min-height: 66px;
+      padding: 0 18px 0 22px;
+    }
+
+    .brand {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      color: var(--muted);
+      display: flex;
+      font-size: 13px;
+      font-weight: 700;
+      gap: 20px;
+    }
+
+    .hero {
+      align-items: center;
+      display: grid;
+      gap: 34px;
+      grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1fr);
+      min-height: 690px;
+      padding: 54px 0 42px;
+    }
+
+    .eyebrow {
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      display: inline-flex;
+      font-size: 12px;
+      font-weight: 800;
+      gap: 10px;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      padding: 9px 12px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      background: var(--teal);
+      border-radius: 2px;
+      content: "";
+      height: 10px;
+      width: 10px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(54px, 7vw, 92px);
+      font-weight: 900;
+      letter-spacing: 0;
+      line-height: 0.94;
+      max-width: 780px;
+    }
+
+    .shine {
+      background: linear-gradient(90deg, var(--teal), var(--lemon), var(--coral));
+      background-clip: text;
+      color: transparent;
+      -webkit-background-clip: text;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.52;
+      margin-top: 24px;
+      max-width: 610px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .button {
+      align-items: center;
+      border-radius: 8px;
+      display: inline-flex;
+      font-size: 14px;
+      font-weight: 850;
+      min-height: 46px;
+      padding: 0 18px;
+    }
+
+    .button.primary {
+      background: linear-gradient(90deg, var(--teal), var(--lemon));
+      color: #102020;
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+
+    .dashboard {
+      background: var(--glass);
+      backdrop-filter: blur(28px);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 36px 110px var(--shadow);
+      min-height: 548px;
+      overflow: hidden;
+      padding: 20px;
+      position: relative;
+    }
+
+    .dashboard::before {
+      background: linear-gradient(90deg, rgba(83, 243, 208, 0.45), rgba(184, 140, 255, 0.38), rgba(255, 127, 110, 0.32));
+      content: "";
+      height: 3px;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .dash-head {
+      align-items: center;
+      border-bottom: 1px solid var(--faint);
+      display: flex;
+      justify-content: space-between;
+      padding: 0 0 18px;
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 7px;
+    }
+
+    .window-dots span {
+      background: var(--faint);
+      border-radius: 8px;
+      height: 9px;
+      width: 9px;
+    }
+
+    .status-pill {
+      background: rgba(83, 243, 208, 0.14);
+      border: 1px solid rgba(83, 243, 208, 0.4);
+      border-radius: 8px;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 900;
+      padding: 7px 10px;
+      text-transform: uppercase;
+    }
+
+    .metric-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 18px 0;
+    }
+
+    .metric {
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid var(--faint);
+      border-radius: 8px;
+      min-height: 112px;
+      padding: 16px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 36px;
+      line-height: 1;
+      margin-top: 18px;
+    }
+
+    .chart {
+      align-items: end;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--faint);
+      border-radius: 8px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(12, 1fr);
+      height: 184px;
+      padding: 18px;
+    }
+
+    .chart span {
+      background: linear-gradient(180deg, var(--teal), rgba(83, 243, 208, 0.1));
+      border-radius: 6px 6px 2px 2px;
+      min-height: 28px;
+    }
+
+    .feed {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .feed-row {
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--faint);
+      border-radius: 8px;
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 38px 1fr auto;
+      min-height: 58px;
+      padding: 10px 12px;
+    }
+
+    .feed-icon {
+      align-items: center;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      color: var(--lemon);
+      display: grid;
+      font-weight: 900;
+      height: 38px;
+      justify-items: center;
+      width: 38px;
+    }
+
+    .feed-row b {
+      display: block;
+      font-size: 14px;
+    }
+
+    .feed-row small {
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .tag {
+      color: var(--coral);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .comparison {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 18px;
+    }
+
+    .comparison article {
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      min-height: 162px;
+      padding: 20px;
+    }
+
+    .comparison h2 {
+      font-size: 19px;
+      line-height: 1.12;
+    }
+
+    .comparison p {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.45;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 920px) {
+      .nav {
+        display: none;
+      }
+
+      .hero,
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .dashboard {
+        min-height: 0;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        padding: 16px 14px 34px;
+      }
+
+      .topbar {
+        min-height: 58px;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      h1 {
+        font-size: 46px;
+      }
+
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feed-row {
+        grid-template-columns: 38px 1fr;
+      }
+
+      .tag {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="#">GradientBoard</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#platform">Platform</a>
+        <a href="#signals">Signals</a>
+        <a href="./example-deck.html">Deck</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="platform">
+        <div>
+          <span class="eyebrow">Traditional vibecoded baseline</span>
+          <h1>One shiny dashboard for <span class="shine">every workflow.</span></h1>
+          <p class="lead">A deliberately generic glassmorphism homepage: soft translucent panels, sweeping gradients, optimistic metrics, and copy that could belong to almost any AI SaaS product.</p>
+          <div class="actions">
+            <a class="button primary" href="#signals">Launch workspace</a>
+            <a class="button secondary" href="./example-deck.html">View deck</a>
+          </div>
+        </div>
+
+        <aside class="dashboard" aria-label="Glassmorphism dashboard preview">
+          <div class="dash-head">
+            <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            <span class="status-pill">Live AI Sync</span>
+          </div>
+
+          <div class="metric-grid">
+            <article class="metric">
+              <span>Velocity</span>
+              <strong>94%</strong>
+            </article>
+            <article class="metric">
+              <span>Signals</span>
+              <strong>12k</strong>
+            </article>
+            <article class="metric">
+              <span>Clarity</span>
+              <strong>8.7x</strong>
+            </article>
+          </div>
+
+          <div class="chart" aria-label="Decorative analytics chart">
+            <span style="height: 42%"></span>
+            <span style="height: 72%"></span>
+            <span style="height: 50%"></span>
+            <span style="height: 81%"></span>
+            <span style="height: 62%"></span>
+            <span style="height: 94%"></span>
+            <span style="height: 58%"></span>
+            <span style="height: 77%"></span>
+            <span style="height: 44%"></span>
+            <span style="height: 88%"></span>
+            <span style="height: 68%"></span>
+            <span style="height: 96%"></span>
+          </div>
+
+          <div class="feed" id="signals">
+            <div class="feed-row">
+              <span class="feed-icon">A</span>
+              <div><b>Autonomous insight generated</b><small>Three generic recommendations were clustered into a single action.</small></div>
+              <span class="tag">Hot</span>
+            </div>
+            <div class="feed-row">
+              <span class="feed-icon">S</span>
+              <div><b>Smart workflow optimized</b><small>The system improved collaboration, productivity, and alignment.</small></div>
+              <span class="tag">New</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="comparison" aria-label="Baseline traits">
+        <article>
+          <h2>Looks polished before it says anything specific.</h2>
+          <p>Glass panels and glow can hide weak hierarchy when the product story is not yet precise.</p>
+        </article>
+        <article>
+          <h2>Same components for every domain.</h2>
+          <p>Metrics, cards, pills, gradients, and vague dashboards repeat regardless of audience or content.</p>
+        </article>
+        <article>
+          <h2>Useful as a contrast target.</h2>
+          <p>Placed beside the curated packs, it makes their stronger constraints easier to see.</p>
+        </article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
+

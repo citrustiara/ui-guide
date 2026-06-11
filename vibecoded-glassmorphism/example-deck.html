@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vibecoded Glassmorphism Example Deck</title>
+  <style>
+    :root {
+      --ink: #f8fbff;
+      --muted: rgba(248, 251, 255, 0.72);
+      --line: rgba(255, 255, 255, 0.22);
+      --faint: rgba(255, 255, 255, 0.12);
+      --glass: rgba(255, 255, 255, 0.12);
+      --teal: #53f3d0;
+      --coral: #ff7f6e;
+      --lemon: #f8dd77;
+      --violet: #b88cff;
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      align-items: center;
+      background: #121722;
+      color: var(--ink);
+      display: flex;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      height: 100vh;
+      justify-content: center;
+      margin: 0;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .slide {
+      background:
+        linear-gradient(125deg, #111722 0%, #173232 30%, #43243e 62%, #6a5320 100%);
+      box-shadow: 0 34px 90px rgba(1, 6, 18, 0.46);
+      display: none;
+      height: 720px;
+      overflow: hidden;
+      padding: 54px 64px;
+      position: relative;
+      width: 1280px;
+    }
+
+    .slide::before {
+      background:
+        linear-gradient(115deg, transparent 0 12%, rgba(83, 243, 208, 0.18) 12% 22%, transparent 22% 38%, rgba(255, 127, 110, 0.18) 38% 50%, transparent 50% 70%, rgba(248, 221, 119, 0.14) 70% 80%, transparent 80%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.055) 0 1px, transparent 1px 92px);
+      content: "";
+      inset: 0;
+      opacity: 0.95;
+      position: absolute;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .topline {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .pill,
+    .badge {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      display: inline-flex;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.1em;
+      padding: 10px 12px;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    p {
+      margin: 0;
+    }
+
+    .hero-title {
+      font-size: 92px;
+      font-weight: 950;
+      letter-spacing: 0;
+      line-height: 0.9;
+      margin-top: 82px;
+      max-width: 780px;
+    }
+
+    .shine {
+      background: linear-gradient(90deg, var(--teal), var(--lemon), var(--coral));
+      background-clip: text;
+      color: transparent;
+      -webkit-background-clip: text;
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.42;
+      margin-top: 28px;
+      max-width: 640px;
+    }
+
+    .glass-card {
+      background: var(--glass);
+      backdrop-filter: blur(28px);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 26px 80px rgba(1, 6, 18, 0.34);
+    }
+
+    .hero-widget {
+      bottom: 54px;
+      padding: 22px;
+      position: absolute;
+      right: 64px;
+      width: 360px;
+      z-index: 3;
+    }
+
+    .hero-widget strong {
+      display: block;
+      font-size: 56px;
+      line-height: 1;
+    }
+
+    .hero-widget span {
+      color: var(--muted);
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-top: 12px;
+    }
+
+    .widget-bars {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(8, 1fr);
+      height: 76px;
+      margin-top: 24px;
+    }
+
+    .widget-bars i {
+      align-self: end;
+      background: linear-gradient(180deg, var(--teal), rgba(83, 243, 208, 0.1));
+      border-radius: 6px 6px 2px 2px;
+      display: block;
+    }
+
+    .case-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 0.95fr 1.25fr;
+      margin-top: 50px;
+    }
+
+    .case-copy {
+      padding: 28px;
+    }
+
+    .case-copy h1 {
+      font-size: 64px;
+      font-weight: 950;
+      line-height: 0.94;
+    }
+
+    .case-copy p {
+      color: var(--muted);
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.48;
+      margin-top: 24px;
+    }
+
+    .dashboard {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 20px;
+    }
+
+    .metric {
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid var(--faint);
+      border-radius: 8px;
+      min-height: 132px;
+      padding: 18px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 44px;
+      line-height: 1;
+      margin-top: 30px;
+    }
+
+    .wide-chart {
+      align-items: end;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--faint);
+      border-radius: 8px;
+      display: grid;
+      gap: 12px;
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(14, 1fr);
+      height: 190px;
+      padding: 22px;
+    }
+
+    .wide-chart span {
+      background: linear-gradient(180deg, var(--lemon), rgba(248, 221, 119, 0.1));
+      border-radius: 7px 7px 2px 2px;
+      min-height: 22px;
+    }
+
+    .note-row {
+      display: grid;
+      gap: 16px;
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .note-row article {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--faint);
+      border-radius: 8px;
+      min-height: 104px;
+      padding: 18px;
+    }
+
+    .note-row h2 {
+      font-size: 20px;
+      line-height: 1.1;
+    }
+
+    .note-row p {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.38;
+      margin-top: 10px;
+    }
+
+    .nav {
+      align-items: center;
+      background: rgba(10, 14, 24, 0.82);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      bottom: 18px;
+      color: white;
+      display: flex;
+      gap: 8px;
+      left: 50%;
+      padding: 8px;
+      position: fixed;
+      transform: translateX(-50%);
+      z-index: 20;
+    }
+
+    .nav button {
+      background: rgba(255, 255, 255, 0.13);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      cursor: pointer;
+      font: 850 12px/1 ui-sans-serif, system-ui, sans-serif;
+      height: 32px;
+      padding: 0 14px;
+      text-transform: uppercase;
+    }
+
+    .nav span {
+      font-size: 12px;
+      font-weight: 850;
+      min-width: 54px;
+      text-align: center;
+    }
+
+    body.qa .nav {
+      display: none;
+    }
+
+    body.qa {
+      background: #121722;
+    }
+
+    body.qa .slide {
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <section class="slide active" data-slide="1">
+    <div class="content">
+      <div class="topline">
+        <span class="pill">Glassmorphism baseline</span>
+        <span class="badge">Deck / 2026</span>
+      </div>
+      <h1 class="hero-title">The future of work is <span class="shine">beautifully automated.</span></h1>
+      <p class="hero-copy">A deliberately familiar vibecoded title slide: polished gradients, translucent cards, huge promise, and a product category broad enough to fit anything.</p>
+    </div>
+    <aside class="glass-card hero-widget" aria-label="Decorative metric card">
+      <strong>10x</strong>
+      <span>alignment, productivity, insight, creativity, and every other abstract metric at once.</span>
+      <div class="widget-bars" aria-hidden="true">
+        <i style="height: 44%"></i>
+        <i style="height: 82%"></i>
+        <i style="height: 62%"></i>
+        <i style="height: 90%"></i>
+        <i style="height: 54%"></i>
+        <i style="height: 96%"></i>
+        <i style="height: 70%"></i>
+        <i style="height: 88%"></i>
+      </div>
+    </aside>
+  </section>
+
+  <section class="slide" data-slide="2">
+    <div class="content">
+      <div class="topline">
+        <span class="pill">Generic SaaS metrics</span>
+        <span class="badge">02 / 02</span>
+      </div>
+      <div class="case-grid">
+        <article class="glass-card case-copy">
+          <h1>Everything dashboard, everywhere.</h1>
+          <p>The baseline relies on the same shiny parts regardless of context: vague cards, universal charts, optimistic deltas, and softly glowing panels.</p>
+        </article>
+        <section class="glass-card dashboard" aria-label="Generic dashboard slide">
+          <article class="metric">
+            <span>Velocity</span>
+            <strong>94%</strong>
+          </article>
+          <article class="metric">
+            <span>Signal</span>
+            <strong>12k</strong>
+          </article>
+          <article class="metric">
+            <span>Impact</span>
+            <strong>8.7x</strong>
+          </article>
+          <div class="wide-chart" aria-hidden="true">
+            <span style="height: 32%"></span>
+            <span style="height: 58%"></span>
+            <span style="height: 46%"></span>
+            <span style="height: 74%"></span>
+            <span style="height: 51%"></span>
+            <span style="height: 88%"></span>
+            <span style="height: 69%"></span>
+            <span style="height: 93%"></span>
+            <span style="height: 56%"></span>
+            <span style="height: 79%"></span>
+            <span style="height: 48%"></span>
+            <span style="height: 86%"></span>
+            <span style="height: 66%"></span>
+            <span style="height: 96%"></span>
+          </div>
+          <div class="note-row">
+            <article>
+              <h2>High shine, low specificity.</h2>
+              <p>The image lands quickly but does not carry much design logic.</p>
+            </article>
+            <article>
+              <h2>Useful comparison foil.</h2>
+              <p>The curated packs show how tighter constraints create clearer personality.</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <div class="nav" aria-label="Slide navigation">
+    <button type="button" data-dir="-1">Prev</button>
+    <span id="counter">01 / 02</span>
+    <button type="button" data-dir="1">Next</button>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const params = new URLSearchParams(window.location.search);
+    let current = Math.max(0, Math.min(slides.length - 1, Number(params.get("slide") || 1) - 1));
+
+    if (params.get("qa") === "1") {
+      document.body.classList.add("qa");
+    }
+
+    function showSlide(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+      document.getElementById("counter").textContent = `${String(current + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+    }
+
+    document.querySelectorAll(".nav button").forEach((button) => {
+      button.addEventListener("click", () => showSlide(current + Number(button.dataset.dir)));
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") showSlide(current + 1);
+      if (event.key === "ArrowLeft") showSlide(current - 1);
+    });
+
+    showSlide(current);
+  </script>
+</body>
+</html>
+

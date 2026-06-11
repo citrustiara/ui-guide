@@ -34,6 +34,10 @@ This repository is a library of style packs. Each pack contains:
 | `chunky-pop-poster` | Friendly, bright, rounded, retro, promotional, energetic | Product drops, creator launches, campaign pages, expressive deck sections | Finance/admin tools, dense analytical interfaces |
 | `ufo-archive-paper` | Archival, mysterious, investigative, cinematic, dark-paper dossier | Research narratives, dossiers, atmospheric presentations, speculative storytelling | Cheerful brands, medical/compliance dashboards, light corporate pages |
 
+## Comparison baseline
+
+`vibecoded-glassmorphism/` is included only for visual comparison against a traditional generic AI-coded glassmorphism interface. Do not select it as a style pack unless the user explicitly asks for that baseline or asks for generic glassmorphism. It does not import or reuse the curated pack tokens.
+
 ## Workflow
 
 1. **Understand the request**

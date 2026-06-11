@@ -1,0 +1,662 @@
+@import url("https://fonts.googleapis.com/css2?family=Bowlby+One&family=Michroma&family=Spline+Sans+Mono:wght@400;600;700&display=swap");
+
+:root {
+  --ua-black: #020202;
+  --ua-void: #070707;
+  --ua-paper: #f2f2ef;
+  --ua-paper-warm: #e6e4df;
+  --ua-paper-cool: #f8f8f6;
+  --ua-ink: #020202;
+  --ua-graphite: #242424;
+  --ua-faint: #aaa9a4;
+  --ua-shadow: rgba(0, 0, 0, 0.34);
+  --ua-red: #d63f2d;
+  --ua-cyan: #89aaa7;
+
+  --ua-font-wire: "Michroma", "Eurostile", "Bank Gothic", "Trebuchet MS", sans-serif;
+  --ua-font-heavy: "Bowlby One", "Arial Black", Impact, sans-serif;
+  --ua-font-mono: "Spline Sans Mono", "Courier New", monospace;
+
+  --ua-page-x: clamp(18px, 4vw, 58px);
+  --ua-page-y: clamp(22px, 4vw, 52px);
+  --ua-radius: 3px;
+  --ua-rule: 2px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--ua-black);
+  color: var(--ua-paper);
+  font-family: var(--ua-font-mono);
+  letter-spacing: 0;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.ua-paper {
+  background-color: var(--ua-paper);
+  background-image:
+    linear-gradient(91deg, transparent 0 13%, rgba(2, 2, 2, 0.055) 13.2%, transparent 13.8%),
+    linear-gradient(89deg, transparent 0 31%, rgba(2, 2, 2, 0.04) 31.3%, transparent 32.1%),
+    linear-gradient(92deg, transparent 0 58%, rgba(2, 2, 2, 0.05) 58.3%, transparent 59%),
+    linear-gradient(88deg, transparent 0 82%, rgba(2, 2, 2, 0.036) 82.2%, transparent 83%),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0));
+  border-radius: var(--ua-radius);
+  box-shadow:
+    inset 0 0 0 1px rgba(2, 2, 2, 0.08),
+    inset 0 22px 70px rgba(255, 255, 255, 0.62),
+    0 28px 86px var(--ua-shadow);
+  color: var(--ua-ink);
+  overflow: hidden;
+  position: relative;
+}
+
+.ua-paper::before,
+.ua-paper::after {
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.ua-paper::before {
+  background-image:
+    radial-gradient(ellipse at 18% 12%, rgba(2, 2, 2, 0.04), transparent 18%),
+    radial-gradient(ellipse at 84% 71%, rgba(2, 2, 2, 0.035), transparent 24%),
+    repeating-linear-gradient(87deg, transparent 0 44px, rgba(2, 2, 2, 0.018) 45px, transparent 47px);
+  opacity: 0.72;
+}
+
+.ua-paper::after {
+  background-image:
+    linear-gradient(92deg, transparent 0 20%, rgba(255, 255, 255, 0.72) 20.2%, transparent 20.65%),
+    linear-gradient(88deg, transparent 0 73%, rgba(255, 255, 255, 0.54) 73.2%, transparent 73.8%);
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+
+.ua-on-paper {
+  position: relative;
+  z-index: 1;
+}
+
+.ua-label {
+  font-family: var(--ua-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.ua-wire-title {
+  font-family: var(--ua-font-wire);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.ua-heavy-title {
+  font-family: var(--ua-font-heavy);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.ua-copy {
+  color: var(--ua-graphite);
+  font-family: var(--ua-font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.28;
+}
+
+.ua-button {
+  align-items: center;
+  background: var(--ua-paper);
+  border: var(--ua-rule) solid var(--ua-paper);
+  color: var(--ua-black);
+  cursor: pointer;
+  display: inline-flex;
+  font: 700 12px/1 var(--ua-font-mono);
+  height: 42px;
+  justify-content: center;
+  padding: 0 18px;
+  text-transform: uppercase;
+}
+
+.ua-button.dark {
+  background: var(--ua-black);
+  border-color: var(--ua-black);
+  color: var(--ua-paper);
+}
+
+.ua-trace {
+  fill: none;
+  pointer-events: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ua-home {
+  background:
+    linear-gradient(180deg, var(--ua-black) 0%, var(--ua-void) 100%);
+  color: var(--ua-paper);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.ua-home-shell {
+  margin: 0 auto;
+  max-width: 1420px;
+  min-height: 100vh;
+  padding: 26px var(--ua-page-x) 58px;
+}
+
+.ua-home-top {
+  align-items: flex-start;
+  color: rgba(242, 242, 239, 0.78);
+  display: flex;
+  font-family: var(--ua-font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  justify-content: space-between;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.ua-home-top nav {
+  display: flex;
+  gap: 26px;
+}
+
+.ua-poster-pair {
+  align-items: center;
+  display: flex;
+  gap: clamp(34px, 7vw, 96px);
+  justify-content: center;
+  margin: clamp(42px, 8vh, 90px) auto 62px;
+}
+
+.ua-poster {
+  aspect-ratio: 540 / 1048;
+  container-type: inline-size;
+  flex: 0 1 auto;
+  height: clamp(520px, 76vh, 760px);
+  padding: clamp(18px, 2.1vw, 30px);
+  width: auto;
+}
+
+.ua-poster.cover {
+  display: flex;
+  flex-direction: column;
+}
+
+.ua-cover-title {
+  font-size: clamp(30px, 17cqw, 78px);
+  line-height: 1.28;
+  max-width: 94%;
+  overflow-wrap: anywhere;
+}
+
+.ua-cover-title span {
+  display: block;
+}
+
+.ua-cover-title .split {
+  text-indent: 0;
+}
+
+.ua-sightings {
+  font-size: clamp(34px, 16cqw, 78px);
+  line-height: 1;
+  margin-top: auto;
+}
+
+.ua-cover-orbit {
+  bottom: 26%;
+  color: var(--ua-ink);
+  height: 19%;
+  left: 24%;
+  position: absolute;
+  transform: rotate(-14deg);
+  width: 64%;
+  z-index: 2;
+}
+
+.ua-cover-orbit ellipse {
+  stroke-width: 3.5;
+}
+
+.ua-report {
+  padding-top: clamp(16px, 2vw, 26px);
+}
+
+.ua-report h1 {
+  font-size: clamp(31px, 13cqw, 68px);
+  line-height: 0.92;
+  max-width: 95%;
+  overflow-wrap: anywhere;
+}
+
+.ua-report .ua-copy {
+  font-size: clamp(15px, 5.5cqw, 25px);
+  line-height: 1.12;
+  margin-top: 10px;
+  max-width: 92%;
+}
+
+.ua-report-orbits {
+  bottom: -30px;
+  color: var(--ua-ink);
+  height: 44%;
+  left: 8%;
+  overflow: visible;
+  position: absolute;
+  width: 84%;
+  z-index: 2;
+}
+
+.ua-report-orbits ellipse {
+  stroke-width: 4;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ua-report-orbits ellipse:nth-child(2) {
+  transform: rotate(-13deg);
+}
+
+.ua-report-orbits ellipse:nth-child(3) {
+  transform: rotate(-25deg);
+}
+
+.ua-report-orbits ellipse:nth-child(4) {
+  transform: rotate(-37deg);
+}
+
+.ua-report-orbits ellipse:nth-child(5) {
+  transform: rotate(-49deg);
+}
+
+.ua-brief-strip {
+  align-items: stretch;
+  display: flex;
+  gap: 2px;
+}
+
+.ua-brief-card {
+  background: var(--ua-paper);
+  color: var(--ua-ink);
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 22px 24px;
+}
+
+.ua-brief-card.dark {
+  background: var(--ua-black);
+  border: 1px solid rgba(242, 242, 239, 0.28);
+  color: var(--ua-paper);
+}
+
+.ua-brief-card h2 {
+  font-family: var(--ua-font-heavy);
+  font-size: clamp(28px, 3vw, 46px);
+  font-weight: 400;
+  line-height: 0.9;
+  margin-top: 18px;
+  text-transform: uppercase;
+}
+
+.ua-brief-card p {
+  color: currentColor;
+  font-family: var(--ua-font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: 18px;
+  opacity: 0.78;
+}
+
+.ua-deck-body {
+  align-items: center;
+  background: #d8d8d5;
+  display: flex;
+  font-family: var(--ua-font-mono);
+  height: 100vh;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+}
+
+.ua-slide {
+  background: var(--ua-black);
+  box-shadow: 0 28px 96px rgba(0, 0, 0, 0.28);
+  display: none;
+  height: 720px;
+  overflow: hidden;
+  position: relative;
+  width: 1280px;
+}
+
+.ua-slide.active {
+  display: block;
+}
+
+.ua-deck-meta {
+  color: rgba(242, 242, 239, 0.74);
+  font-family: var(--ua-font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.ua-deck-top {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  left: 46px;
+  position: absolute;
+  right: 46px;
+  top: 34px;
+  z-index: 5;
+}
+
+.ua-deck-pair {
+  align-items: center;
+  display: flex;
+  gap: 78px;
+  height: 100%;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.ua-deck-panel {
+  aspect-ratio: 540 / 1048;
+  height: 548px;
+  padding: 18px;
+}
+
+.ua-deck-panel.cover h1 {
+  font-size: 42px;
+  line-height: 1.3;
+}
+
+.ua-deck-panel.cover h1 span {
+  display: block;
+}
+
+.ua-deck-panel.cover .ua-sightings {
+  bottom: 20px;
+  font-size: 43px;
+  left: 18px;
+  line-height: 1.18;
+  position: absolute;
+}
+
+.ua-deck-panel.report h1 {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.ua-deck-panel.report .ua-copy {
+  font-size: 15px;
+  line-height: 1.18;
+  margin-top: 18px;
+  max-width: 95%;
+}
+
+.ua-deck-panel .ua-cover-orbit {
+  bottom: 18%;
+  height: 15%;
+  left: 21%;
+  width: 68%;
+}
+
+.ua-deck-panel .ua-report-orbits {
+  bottom: -4px;
+  height: 39%;
+  left: 5%;
+  width: 90%;
+}
+
+.ua-case-slide {
+  background: var(--ua-black);
+  color: var(--ua-paper);
+}
+
+.ua-case-paper {
+  bottom: 36px;
+  left: 42px;
+  position: absolute;
+  top: 70px;
+  width: 406px;
+}
+
+.ua-case-paper h1 {
+  font-size: 68px;
+  line-height: 0.91;
+  padding: 26px 26px 0;
+  text-transform: uppercase;
+}
+
+.ua-case-paper .ua-copy {
+  bottom: 26px;
+  font-size: 18px;
+  left: 26px;
+  line-height: 1.16;
+  max-width: 312px;
+  position: absolute;
+}
+
+.ua-case-visual {
+  bottom: 28px;
+  color: var(--ua-paper);
+  height: 590px;
+  overflow: visible;
+  position: absolute;
+  right: 34px;
+  width: 700px;
+  z-index: 1;
+}
+
+.ua-case-visual ellipse {
+  stroke-width: 3.3;
+}
+
+.ua-case-visual ellipse:nth-child(2) {
+  transform: rotate(-9deg);
+}
+
+.ua-case-visual ellipse:nth-child(3) {
+  transform: rotate(-18deg);
+}
+
+.ua-case-visual ellipse:nth-child(4) {
+  transform: rotate(-28deg);
+}
+
+.ua-case-visual ellipse:nth-child(5) {
+  transform: rotate(-39deg);
+}
+
+.ua-case-visual ellipse:nth-child(6) {
+  transform: rotate(-51deg);
+}
+
+.ua-case-visual ellipse {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ua-case-note {
+  color: var(--ua-paper);
+  font-family: var(--ua-font-wire);
+  font-size: 27px;
+  left: 492px;
+  line-height: 1.34;
+  max-width: 312px;
+  position: absolute;
+  top: 92px;
+  z-index: 3;
+}
+
+.ua-case-slide .ua-deck-top {
+  top: 28px;
+}
+
+.ua-case-index {
+  bottom: 48px;
+  display: flex;
+  gap: 2px;
+  left: 492px;
+  position: absolute;
+  width: 342px;
+  z-index: 4;
+}
+
+.ua-case-index div {
+  background: var(--ua-paper);
+  color: var(--ua-ink);
+  flex: 1;
+  min-height: 104px;
+  padding: 14px;
+}
+
+.ua-case-index b {
+  display: block;
+  font-family: var(--ua-font-heavy);
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 0.9;
+}
+
+.ua-case-index span {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.12;
+  margin-top: 14px;
+  text-transform: uppercase;
+}
+
+.ua-nav {
+  align-items: center;
+  background: rgba(2, 2, 2, 0.92);
+  bottom: 18px;
+  color: var(--ua-paper);
+  display: flex;
+  gap: 8px;
+  left: 50%;
+  padding: 8px;
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+.ua-nav button {
+  background: var(--ua-paper);
+  border: 0;
+  color: var(--ua-ink);
+  cursor: pointer;
+  font: 700 12px/1 var(--ua-font-mono);
+  height: 32px;
+  padding: 0 14px;
+  text-transform: uppercase;
+}
+
+.ua-nav span {
+  font: 700 12px/1 var(--ua-font-mono);
+  min-width: 48px;
+  text-align: center;
+}
+
+body.qa .ua-nav {
+  display: none;
+}
+
+body.qa.ua-deck-body {
+  background: var(--ua-black);
+}
+
+body.qa .ua-slide {
+  box-shadow: none;
+}
+
+@media (max-width: 980px) {
+  .ua-home-top {
+    gap: 20px;
+  }
+
+  .ua-home-top nav {
+    gap: 14px;
+  }
+
+  .ua-poster-pair {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .ua-poster {
+    height: auto;
+    min-height: 0;
+    width: min(100%, 520px);
+  }
+
+  .ua-brief-strip {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 620px) {
+  .ua-home-shell {
+    padding-top: 18px;
+  }
+
+  .ua-home-top {
+    display: block;
+  }
+
+  .ua-home-top nav {
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .ua-poster {
+    aspect-ratio: 0.55;
+    padding: 18px;
+  }
+
+  .ua-cover-title {
+    font-size: clamp(30px, 10vw, 50px);
+  }
+
+  .ua-sightings {
+    font-size: clamp(34px, 11vw, 58px);
+  }
+
+  .ua-report h1 {
+    font-size: clamp(32px, 11vw, 54px);
+  }
+
+  .ua-report .ua-copy {
+    font-size: clamp(15px, 4vw, 20px);
+  }
+}

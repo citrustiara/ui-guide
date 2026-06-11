@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chunky Pop Poster Example Deck</title>
+  <link rel="stylesheet" href="./tokens.css">
+  <style>
+    body {
+      align-items: center;
+      background: #dfe3ea;
+      display: flex;
+      font-family: var(--cp-font-body);
+      height: 100vh;
+      justify-content: center;
+      margin: 0;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .slide {
+      box-shadow: 0 26px 90px var(--cp-shadow);
+      display: none;
+      flex: 0 0 1280px;
+      height: 720px;
+      overflow: hidden;
+      position: relative;
+      width: 1280px;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide.active.palette-slide {
+      display: grid;
+    }
+
+    .deck-meta {
+      font-family: var(--cp-font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .palette-slide {
+      background: var(--cp-cream);
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    .palette-row {
+      align-items: center;
+      display: grid;
+      grid-template-columns: 245px minmax(0, 1fr) 210px;
+      min-height: 0;
+      overflow: hidden;
+      padding: 26px 48px;
+      position: relative;
+    }
+
+    .palette-row + .palette-row {
+      border-top: 3px solid var(--cp-ink);
+    }
+
+    .palette-row.blue {
+      background: var(--cp-sky);
+      color: var(--cp-butter);
+    }
+
+    .palette-row.cream {
+      background: var(--cp-cream);
+      color: var(--cp-guava);
+    }
+
+    .palette-row.green {
+      background: var(--cp-mint);
+      color: var(--cp-pink);
+    }
+
+    .palette-row .deck-meta {
+      align-self: start;
+      color: currentColor;
+      opacity: 0.95;
+      position: relative;
+      z-index: 3;
+    }
+
+    .palette-row h1 {
+      font-family: var(--cp-font-display);
+      font-size: 134px;
+      font-weight: 700;
+      line-height: 0.78;
+      margin: 0;
+      min-width: 0;
+      position: relative;
+      text-transform: uppercase;
+      z-index: 3;
+    }
+
+    .palette-row .side-note {
+      align-self: end;
+      color: currentColor;
+      justify-self: end;
+      max-width: 160px;
+      position: relative;
+      text-align: right;
+      z-index: 3;
+    }
+
+    .palette-row .orb {
+      border-radius: 50%;
+      height: 170px;
+      pointer-events: none;
+      position: absolute;
+      right: 145px;
+      width: 170px;
+      z-index: 1;
+    }
+
+    .blue .orb {
+      background: var(--cp-guava);
+      top: 38px;
+    }
+
+    .cream .orb {
+      background: var(--cp-sky);
+      bottom: -42px;
+    }
+
+    .green .orb {
+      background: var(--cp-butter);
+      top: -36px;
+    }
+
+    .palette-loop {
+      color: var(--cp-cream);
+      height: 260px;
+      left: 430px;
+      opacity: 0.9;
+      position: absolute;
+      top: 56px;
+      transform: rotate(-5deg);
+      width: 560px;
+      z-index: 4;
+    }
+
+    .recipe-slide {
+      background: var(--cp-cream);
+      color: var(--cp-ink);
+    }
+
+    .ribbon {
+      background: var(--cp-guava);
+      height: 330px;
+      left: -80px;
+      position: absolute;
+      top: -112px;
+      transform: rotate(-8deg);
+      width: 1500px;
+      z-index: 1;
+    }
+
+    .recipe-header {
+      align-items: flex-start;
+      color: var(--cp-cream);
+      display: flex;
+      justify-content: space-between;
+      left: 58px;
+      position: absolute;
+      right: 58px;
+      top: 40px;
+      z-index: 4;
+    }
+
+    .recipe-title {
+      color: var(--cp-sky-deep);
+      font-family: var(--cp-font-display);
+      font-size: 76px;
+      font-weight: 700;
+      left: 56px;
+      line-height: 0.84;
+      margin: 0;
+      max-width: 675px;
+      position: absolute;
+      text-transform: uppercase;
+      top: 140px;
+      z-index: 4;
+    }
+
+    .round-label {
+      align-items: center;
+      background: var(--cp-butter);
+      border-radius: 50%;
+      color: var(--cp-ink);
+      display: grid;
+      font-family: var(--cp-font-display);
+      font-size: 34px;
+      font-weight: 700;
+      height: 220px;
+      justify-items: center;
+      line-height: 0.9;
+      padding: 26px;
+      position: absolute;
+      right: 86px;
+      box-shadow: 0 13px 0 rgba(17, 19, 27, 0.12);
+      text-align: center;
+      text-transform: uppercase;
+      top: 122px;
+      transform: rotate(8deg);
+      width: 220px;
+      z-index: 5;
+    }
+
+    .recipe-copy {
+      color: var(--cp-muted);
+      font-size: 19px;
+      font-weight: 900;
+      left: 64px;
+      line-height: 1.34;
+      margin: 0;
+      max-width: 510px;
+      position: absolute;
+      top: 386px;
+      z-index: 4;
+    }
+
+    .recipe-board {
+      align-items: center;
+      background: rgba(255, 248, 239, 0.72);
+      border-radius: 999px;
+      bottom: 40px;
+      box-shadow: 0 18px 44px rgba(17, 19, 27, 0.08);
+      color: var(--cp-ink);
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 245px minmax(0, 1fr);
+      left: 64px;
+      min-height: 154px;
+      padding: 18px 24px;
+      position: absolute;
+      right: 64px;
+      z-index: 6;
+    }
+
+    .recipe-board::before {
+      background: var(--cp-guava);
+      border-radius: 999px;
+      content: "";
+      height: 10px;
+      left: 282px;
+      opacity: 0.45;
+      position: absolute;
+      right: 82px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-1deg);
+      z-index: 0;
+    }
+
+    .board-title {
+      align-items: center;
+      background: var(--cp-pink);
+      border-radius: 999px;
+      box-shadow: 0 9px 0 rgba(15, 95, 174, 0.09);
+      color: var(--cp-mint);
+      display: grid;
+      min-height: 118px;
+      min-width: 0;
+      padding: 22px 30px;
+      position: relative;
+      transform: rotate(-1.6deg);
+      z-index: 2;
+    }
+
+    .board-title strong {
+      font-family: var(--cp-font-display);
+      font-size: 35px;
+      font-weight: 700;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .board-steps {
+      align-items: center;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      min-width: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .board-step {
+      align-items: center;
+      background: var(--cp-cream);
+      border-radius: 999px;
+      box-shadow: 0 8px 0 rgba(17, 19, 27, 0.06);
+      display: grid;
+      gap: 14px;
+      grid-template-columns: auto minmax(0, 1fr);
+      min-height: 104px;
+      min-width: 0;
+      padding: 18px 22px;
+    }
+
+    .board-step:nth-child(1) {
+      background: #fffbd4;
+      transform: rotate(1deg);
+    }
+
+    .board-step:nth-child(2) {
+      background: #e7f1ff;
+      transform: rotate(-1.2deg) translateY(8px);
+    }
+
+    .board-step:nth-child(3) {
+      background: #e7f6d6;
+      transform: rotate(0.8deg);
+    }
+
+    .board-step b {
+      align-items: center;
+      background: var(--cp-guava);
+      border-radius: 50%;
+      color: var(--cp-cream);
+      display: grid;
+      font-family: var(--cp-font-display);
+      font-size: 28px;
+      font-weight: 700;
+      height: 58px;
+      justify-items: center;
+      line-height: 0.84;
+      width: 58px;
+    }
+
+    .board-step span {
+      color: var(--cp-ink);
+      display: block;
+      font-size: 17px;
+      font-weight: 900;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .mini-orb {
+      background: var(--cp-sky);
+      border-radius: 50%;
+      bottom: -88px;
+      height: 238px;
+      position: absolute;
+      right: -80px;
+      width: 238px;
+      z-index: 2;
+    }
+
+    .nav {
+      align-items: center;
+      background: rgba(17, 19, 27, 0.92);
+      bottom: 18px;
+      color: var(--cp-cream);
+      display: flex;
+      gap: 8px;
+      left: 50%;
+      padding: 8px;
+      position: fixed;
+      transform: translateX(-50%);
+      z-index: 20;
+    }
+
+    .nav button {
+      background: var(--cp-butter);
+      border: 0;
+      color: var(--cp-ink);
+      cursor: pointer;
+      font: 900 12px/1 var(--cp-font-body);
+      height: 32px;
+      padding: 0 14px;
+      text-transform: uppercase;
+    }
+
+    .nav span {
+      font: 700 12px/1 var(--cp-font-mono);
+      min-width: 48px;
+      text-align: center;
+    }
+
+    body.qa .nav {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <section class="slide palette-slide active" data-slide="1">
+    <div class="palette-row blue">
+      <div class="deck-meta">Pop Studio<br>palette no. 01</div>
+      <h1>Chunky</h1>
+      <div class="side-note deck-meta">Blue field<br>butter type<br>guava dot</div>
+      <span class="orb" aria-hidden="true"></span>
+    </div>
+    <div class="palette-row cream">
+      <div class="deck-meta">Campaign kit<br>palette no. 02</div>
+      <h1>Poster</h1>
+      <div class="side-note deck-meta">Cream field<br>guava type<br>sky dot</div>
+      <span class="orb" aria-hidden="true"></span>
+    </div>
+    <div class="palette-row green">
+      <div class="deck-meta">Creator index<br>palette no. 03</div>
+      <h1>System</h1>
+      <div class="side-note deck-meta">Green field<br>pink type<br>butter dot</div>
+      <span class="orb" aria-hidden="true"></span>
+    </div>
+    <svg class="palette-loop cp-script" viewBox="0 0 560 260" aria-hidden="true">
+      <path d="M448 18 C418 92 358 146 254 144 C154 142 138 91 208 67 C275 44 330 76 292 128 C250 187 154 193 96 139 C48 94 92 31 177 25" stroke-width="4"/>
+    </svg>
+  </section>
+
+  <section class="slide recipe-slide" data-slide="2">
+    <div class="ribbon" aria-hidden="true"></div>
+    <div class="mini-orb" aria-hidden="true"></div>
+    <header class="recipe-header deck-meta">
+      <span>Launch recipe / 02</span>
+      <span>Editable pop poster system</span>
+    </header>
+    <h1 class="recipe-title">Make the page feel like a product drop.</h1>
+    <div class="round-label">No grid<br>costume</div>
+    <p class="recipe-copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. The composition uses poster logic first, then turns into compact launch modules below.</p>
+    <section class="recipe-board" aria-label="Recipe steps">
+      <div class="board-title">
+        <span class="deck-meta">Three moves</span>
+        <strong>Pop recipe</strong>
+      </div>
+      <div class="board-steps">
+        <div class="board-step"><b>01</b><span>Pick one loud palette</span></div>
+        <div class="board-step"><b>02</b><span>Make the word huge</span></div>
+        <div class="board-step"><b>03</b><span>Keep the rest plain</span></div>
+      </div>
+    </section>
+  </section>
+
+  <div class="nav" aria-label="Slide navigation">
+    <button type="button" data-dir="-1">Prev</button>
+    <span id="counter">01 / 02</span>
+    <button type="button" data-dir="1">Next</button>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const params = new URLSearchParams(window.location.search);
+    let current = Math.max(0, Math.min(slides.length - 1, Number(params.get("slide") || 1) - 1));
+
+    if (params.get("qa") === "1") {
+      document.body.classList.add("qa");
+    }
+
+    function showSlide(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+      document.getElementById("counter").textContent = `${String(current + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+    }
+
+    document.querySelectorAll(".nav button").forEach((button) => {
+      button.addEventListener("click", () => showSlide(current + Number(button.dataset.dir)));
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") showSlide(current + 1);
+      if (event.key === "ArrowLeft") showSlide(current - 1);
+    });
+
+    showSlide(current);
+  </script>
+</body>
+</html>

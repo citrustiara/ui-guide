@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modern Display Specimen Example Deck</title>
+  <link rel="stylesheet" href="./tokens.css">
+  <style>
+    body {
+      align-items: center;
+      background: var(--ds-silver);
+      display: flex;
+      font-family: var(--ds-font-body);
+      height: 100vh;
+      justify-content: center;
+      margin: 0;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .slide {
+      background: var(--ds-pearl);
+      box-shadow: 0 26px 90px var(--ds-shadow);
+      display: none;
+      height: 720px;
+      overflow: hidden;
+      position: relative;
+      width: 1280px;
+    }
+
+    .specimen-slide {
+      border: var(--ds-rule) solid var(--ds-line);
+      grid-template-rows: 48px 158px 158px 158px 150px 48px;
+    }
+
+    .slide.active.specimen-slide,
+    .slide.active.case-slide {
+      display: grid;
+    }
+
+    .deck-top,
+    .deck-foot {
+      align-items: center;
+      border-bottom: var(--ds-rule) solid var(--ds-line);
+      display: grid;
+      font-family: var(--ds-font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      grid-template-columns: 140px 1fr 80px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .deck-top > *,
+    .deck-foot > * {
+      align-items: center;
+      border-right: var(--ds-rule) solid var(--ds-line);
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      min-width: 0;
+      padding: 0 20px;
+    }
+
+    .deck-top > *:first-child,
+    .deck-foot > *:first-child {
+      justify-content: flex-start;
+    }
+
+    .deck-top > *:last-child,
+    .deck-foot > *:last-child {
+      border-right: 0;
+    }
+
+    .deck-row {
+      align-items: center;
+      border-bottom: var(--ds-rule) solid var(--ds-line);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 286px;
+      overflow: hidden;
+    }
+
+    .deck-row.rust {
+      background: var(--ds-rust);
+      color: var(--ds-pearl);
+    }
+
+    .deck-word {
+      font-family: var(--ds-font-display);
+      font-size: 156px;
+      font-weight: 900;
+      letter-spacing: -0.065em;
+      line-height: 0.7;
+      padding: 0 26px 14px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .deck-mark {
+      align-items: center;
+      align-self: stretch;
+      border-left: var(--ds-rule) solid var(--ds-line);
+      display: flex;
+      font-family: var(--ds-font-display);
+      font-size: 100px;
+      font-weight: 900;
+      justify-content: center;
+      letter-spacing: -0.12em;
+      line-height: 0.7;
+      overflow: hidden;
+      text-transform: uppercase;
+    }
+
+    .deck-info {
+      border-bottom: var(--ds-rule) solid var(--ds-line);
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1fr;
+    }
+
+    .deck-cell {
+      border-right: var(--ds-rule) solid var(--ds-line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px 22px;
+    }
+
+    .deck-cell:last-child {
+      border-right: 0;
+    }
+
+    .deck-cell strong {
+      color: var(--ds-rust);
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+    }
+
+    .deck-cell p {
+      color: var(--ds-muted);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .deck-foot {
+      border-bottom: 0;
+      border-top: 0;
+      grid-template-columns: 140px 1fr 260px;
+    }
+
+    .case-slide {
+      grid-template-columns: 430px minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    .case-side {
+      background: var(--ds-rust);
+      border-right: var(--ds-rule) solid var(--ds-line);
+      color: var(--ds-pearl);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 0;
+      overflow: hidden;
+      padding: 42px 26px;
+    }
+
+    .case-side h1 {
+      font-family: var(--ds-font-display);
+      font-size: 82px;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      line-height: 0.74;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .case-main {
+      display: grid;
+      grid-template-rows: 48px minmax(0, 1fr) 150px;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .case-meta {
+      align-items: center;
+      border-bottom: var(--ds-rule) solid var(--ds-line);
+      display: flex;
+      font-family: var(--ds-font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      justify-content: space-between;
+      padding: 0 36px;
+      text-transform: uppercase;
+    }
+
+    .case-content {
+      display: grid;
+      gap: 0;
+      grid-template-columns: 1fr 1fr;
+      min-height: 0;
+    }
+
+    .case-copy {
+      border-right: var(--ds-rule) solid var(--ds-line);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      justify-content: center;
+      min-height: 0;
+      overflow: hidden;
+      padding: 32px 34px;
+    }
+
+    .case-copy h2 {
+      font-family: var(--ds-font-display);
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: -0.055em;
+      line-height: 0.8;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .case-copy p {
+      color: var(--ds-muted);
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.38;
+      margin: 0;
+      max-width: 390px;
+    }
+
+    .metric-panel {
+      background: var(--ds-pearl-soft);
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+    }
+
+    .metric {
+      border-bottom: var(--ds-rule) solid var(--ds-line);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 34px;
+    }
+
+    .metric:last-child {
+      border-bottom: 0;
+    }
+
+    .metric b {
+      color: var(--ds-rust);
+      font-family: var(--ds-font-display);
+      font-size: 72px;
+      font-weight: 900;
+      letter-spacing: -0.075em;
+      line-height: 0.74;
+    }
+
+    .metric span {
+      font-family: var(--ds-font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 18px;
+      text-transform: uppercase;
+    }
+
+    .process {
+      border-top: var(--ds-rule) solid var(--ds-line);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      min-height: 0;
+    }
+
+    .process div {
+      border-right: var(--ds-rule) solid var(--ds-line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px 20px;
+    }
+
+    .process div:last-child {
+      border-right: 0;
+    }
+
+    .process b {
+      color: var(--ds-rust);
+      font-family: var(--ds-font-display);
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.075em;
+      line-height: 0.8;
+    }
+
+    .process span {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      align-items: center;
+      background: rgba(17, 17, 15, 0.92);
+      bottom: 18px;
+      color: var(--ds-pearl);
+      display: flex;
+      gap: 8px;
+      left: 50%;
+      padding: 8px;
+      position: fixed;
+      transform: translateX(-50%);
+      z-index: 20;
+    }
+
+    .nav button {
+      background: var(--ds-pearl);
+      border: 0;
+      color: var(--ds-ink);
+      cursor: pointer;
+      font: 900 12px/1 var(--ds-font-body);
+      height: 32px;
+      padding: 0 14px;
+      text-transform: uppercase;
+    }
+
+    .nav span {
+      font: 700 12px/1 var(--ds-font-mono);
+      min-width: 46px;
+      text-align: center;
+    }
+
+    body.qa .nav {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <section class="slide specimen-slide active" data-slide="1">
+    <header class="deck-top">
+      <span>ZT</span>
+      <span>Modern display system</span>
+      <span>20</span>
+    </header>
+    <div class="deck-row rust">
+      <div class="deck-word">Signal</div>
+      <div class="deck-mark" aria-hidden="true">/&nbsp;</div>
+    </div>
+    <div class="deck-row">
+      <div class="deck-word">Family</div>
+      <div class="deck-mark" aria-hidden="true">&lt;&gt;</div>
+    </div>
+    <div class="deck-row">
+      <div class="deck-word">Index</div>
+      <div class="deck-mark ds-rust-field" aria-hidden="true">24</div>
+    </div>
+    <div class="deck-info">
+      <article class="deck-cell">
+        <span class="ds-label">Published by / Archive Studio</span>
+        <strong>Hard-edged decks for launch narratives and portfolio systems.</strong>
+      </article>
+      <article class="deck-cell">
+        <span class="ds-label">Designed by / Example Name</span>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere lectus sed massa luctus.</p>
+      </article>
+      <article class="deck-cell">
+        <span class="ds-label">Collection no. 33</span>
+        <p>Variable and static layouts for specimen pages, presentation covers, and project indexes.</p>
+      </article>
+    </div>
+    <footer class="deck-foot">
+      <span>24</span>
+      <span>Display specimen deck</span>
+      <span>Rust / pearl / ink</span>
+    </footer>
+  </section>
+
+  <section class="slide case-slide" data-slide="2">
+    <aside class="case-side">
+      <div class="ds-meta">
+        <span>Case / 02</span>
+        <span>Specimen grid</span>
+      </div>
+      <h1>Grid<br>work<br>system</h1>
+      <div class="ds-meta">
+        <span>Portfolio kit</span>
+        <span>2026</span>
+      </div>
+    </aside>
+    <main class="case-main">
+      <header class="case-meta">
+        <span>Launch system</span>
+        <span>Structured visual identity</span>
+      </header>
+      <section class="case-content">
+        <div class="case-copy">
+          <h2>Built from rows, rules, and one strong color field.</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. The layout behaves like a printed specimen sheet while staying fully editable for web and deck use.</p>
+          <a class="ds-button ds-outline" href="#">View index</a>
+        </div>
+        <div class="metric-panel">
+          <div class="metric">
+            <b>08</b>
+            <span>Reusable specimen sections</span>
+          </div>
+          <div class="metric">
+            <b>03</b>
+            <span>Launch-ready page formats</span>
+          </div>
+        </div>
+      </section>
+      <section class="process" aria-label="Process">
+        <div><b>01</b><span>Set the field</span></div>
+        <div><b>02</b><span>Stack the type</span></div>
+        <div><b>03</b><span>Cut the cells</span></div>
+        <div><b>04</b><span>Ship the system</span></div>
+      </section>
+    </main>
+  </section>
+
+  <div class="nav" aria-label="Slide navigation">
+    <button type="button" data-dir="-1">Prev</button>
+    <span id="counter">01 / 02</span>
+    <button type="button" data-dir="1">Next</button>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const params = new URLSearchParams(window.location.search);
+    let current = Math.max(0, Math.min(slides.length - 1, Number(params.get("slide") || 1) - 1));
+
+    if (params.get("qa") === "1") {
+      document.body.classList.add("qa");
+    }
+
+    function showSlide(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+      document.getElementById("counter").textContent = `${String(current + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+    }
+
+    document.querySelectorAll(".nav button").forEach((button) => {
+      button.addEventListener("click", () => showSlide(current + Number(button.dataset.dir)));
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") showSlide(current + 1);
+      if (event.key === "ArrowLeft") showSlide(current - 1);
+    });
+
+    showSlide(current);
+  </script>
+</body>
+</html>

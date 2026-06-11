@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Futura Bauhaus Portfolio Home</title>
+  <link rel="stylesheet" href="./tokens.css">
+  <style>
+    body {
+      background: var(--fb-paper);
+      color: var(--fb-ink);
+      font-family: var(--fb-font);
+    }
+
+    .site {
+      background: var(--fb-white);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      min-height: 760px;
+      position: relative;
+    }
+
+    .hero-left,
+    .hero-right {
+      min-width: 0;
+      overflow: hidden;
+      padding: 38px clamp(24px, 5vw, 72px) 54px;
+      position: relative;
+    }
+
+    .hero-left {
+      background: var(--fb-white);
+    }
+
+    .hero-right {
+      background: var(--fb-red);
+      color: var(--fb-white);
+    }
+
+    .hero-word {
+      font-size: clamp(78px, 13vw, 180px);
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      line-height: 0.82;
+      margin: 44px 0 0;
+      position: relative;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .hero-word.right {
+      color: var(--fb-white);
+      margin-left: 24px;
+    }
+
+    .hero-copy {
+      bottom: 58px;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1fr;
+      left: clamp(24px, 5vw, 72px);
+      max-width: 390px;
+      position: absolute;
+      right: clamp(24px, 5vw, 72px);
+      z-index: 5;
+    }
+
+    .hero-copy h1 {
+      color: var(--fb-red);
+      font-size: clamp(24px, 2.7vw, 34px);
+      font-weight: 600;
+      grid-column: 1 / -1;
+      line-height: 1.05;
+      margin: 0;
+      max-width: 620px;
+    }
+
+    .hero-copy p {
+      color: var(--fb-muted);
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.42;
+      margin: 0;
+    }
+
+    .hero-menu {
+      display: grid;
+      gap: 24px;
+      left: clamp(120px, 15vw, 210px);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      right: clamp(24px, 5vw, 72px);
+      top: 250px;
+      z-index: 5;
+    }
+
+    .hero-menu a {
+      color: var(--fb-white);
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 44px 1fr;
+      text-decoration: none;
+    }
+
+    .hero-menu span {
+      font-size: 15px;
+      font-weight: 900;
+      padding-top: 5px;
+    }
+
+    .hero-menu strong {
+      font-size: clamp(34px, 4vw, 62px);
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      line-height: 0.86;
+      text-transform: uppercase;
+    }
+
+    .split-circle {
+      --ring-stroke: clamp(34px, 5vw, 64px);
+      background: linear-gradient(90deg, var(--fb-navy) 0 50%, var(--fb-white) 50% 100%);
+      border-radius: 50%;
+      height: min(32vw, 340px);
+      left: 50%;
+      mask: radial-gradient(farthest-side, transparent calc(100% - var(--ring-stroke) - 1px), #000 calc(100% - var(--ring-stroke)));
+      position: absolute;
+      top: 290px;
+      transform: translateX(-50%);
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--ring-stroke) - 1px), #000 calc(100% - var(--ring-stroke)));
+      width: min(32vw, 340px);
+      z-index: 4;
+    }
+
+    .name {
+      bottom: 50px;
+      font-size: clamp(28px, 3vw, 48px);
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      line-height: 0.86;
+      position: absolute;
+      right: clamp(24px, 5vw, 72px);
+      text-align: right;
+      text-transform: uppercase;
+      z-index: 6;
+    }
+
+    .works {
+      display: grid;
+      gap: 28px;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      padding: 72px clamp(24px, 5vw, 72px);
+    }
+
+    .works header {
+      grid-column: span 4;
+    }
+
+    .works h2 {
+      font-size: clamp(42px, 6vw, 86px);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      line-height: 0.9;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .work-list {
+      border-top: 4px solid var(--fb-navy);
+      grid-column: span 8;
+    }
+
+    .work-item {
+      align-items: start;
+      border-bottom: 2px solid var(--fb-line);
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 74px 1.1fr 1fr;
+      padding: 24px 0;
+    }
+
+    .work-item b {
+      color: var(--fb-red);
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 0.9;
+    }
+
+    .work-item h3 {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 0.95;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .work-item p {
+      color: var(--fb-muted);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.42;
+      margin: 0;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .hero-left,
+      .hero-right {
+        min-height: 560px;
+      }
+
+      .hero-copy,
+      .hero-menu,
+      .name {
+        bottom: auto;
+        left: 0;
+        position: relative;
+        right: auto;
+        top: auto;
+        margin-top: 80px;
+        text-align: left;
+      }
+
+      .hero-copy {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+        padding-right: 8px;
+        width: min(100%, 320px);
+      }
+
+      .hero-copy h1 {
+        font-size: 25px;
+      }
+
+      .hero-copy p {
+        font-size: 15px;
+      }
+
+      .hero .fb-meta span:last-child {
+        display: none;
+      }
+
+      .split-circle {
+        display: none;
+      }
+
+      .works {
+        grid-template-columns: 1fr;
+      }
+
+      .works header,
+      .work-list {
+        grid-column: auto;
+      }
+
+      .work-item {
+        grid-template-columns: 60px 1fr;
+      }
+
+      .work-item p {
+        grid-column: 2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="site">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-left">
+        <div class="fb-meta">
+          <span>Portfolio / 2026</span>
+          <span>Geometric Direction</span>
+        </div>
+        <p class="hero-word">Port</p>
+        <div class="hero-copy">
+          <h1 id="page-title">Identity systems for brands that need to look exact, fast, and memorable.</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere lectus sed massa luctus, non gravida elit faucibus.</p>
+          <p>Poster logic, modular grids, and sharp interface details combine into launch pages, decks, and small product systems.</p>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="fb-meta">
+          <span>Selected Works</span>
+          <span>Index A-04</span>
+        </div>
+        <p class="hero-word right">folio</p>
+        <ul class="hero-menu">
+          <li><a href="#works"><span>01</span><strong>Editorial identity</strong></a></li>
+          <li><a href="#works"><span>02</span><strong>Campaign system</strong></a></li>
+          <li><a href="#works"><span>03</span><strong>Product launch</strong></a></li>
+        </ul>
+        <div class="name">Marta<br>Kowalska</div>
+      </div>
+      <div class="split-circle" aria-hidden="true"></div>
+    </section>
+
+    <section class="works" id="works">
+      <header>
+        <div class="fb-rule"></div>
+        <h2>Work<br>Index</h2>
+      </header>
+      <div class="work-list">
+        <article class="work-item">
+          <b>01</b>
+          <h3>Grid identity for a design studio</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lacinia sem in lectus pretium, at facilisis turpis dictum.</p>
+        </article>
+        <article class="work-item">
+          <b>02</b>
+          <h3>Launch page for a technical product</h3>
+          <p>Praesent at augue vitae lectus dictum tempor. Donec id purus nec ipsum posuere elementum at vel neque.</p>
+        </article>
+        <article class="work-item">
+          <b>03</b>
+          <h3>Presentation kit for a small team</h3>
+          <p>Nulla facilisi. Sed vitae ipsum sed tortor varius mattis. Integer tincidunt sem et ex cursus, vel finibus orci feugiat.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

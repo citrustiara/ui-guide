@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Futura Bauhaus Example Deck</title>
+  <link rel="stylesheet" href="./tokens.css">
+  <style>
+    body {
+      align-items: center;
+      background: #d9dbe3;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .slide {
+      background: var(--fb-white);
+      box-shadow: 0 28px 90px var(--fb-shadow);
+      display: none;
+      height: 720px;
+      overflow: hidden;
+      position: relative;
+      width: 1280px;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .deck-pane {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+      overflow: hidden;
+      padding: 48px 64px;
+      position: relative;
+    }
+
+    .slide-one .deck-pane:first-child {
+      background: var(--fb-white);
+    }
+
+    .slide-one .deck-pane:last-child {
+      background: var(--fb-red);
+      color: var(--fb-white);
+    }
+
+    .cropped-word {
+      font-size: 92px;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      line-height: 0.82;
+      margin: 0;
+      position: absolute;
+      text-transform: uppercase;
+      top: 70px;
+      white-space: nowrap;
+      z-index: 1;
+    }
+
+    .cropped-word.left {
+      color: var(--fb-navy);
+      left: 64px;
+    }
+
+    .cropped-word.right {
+      color: var(--fb-white);
+      left: 64px;
+    }
+
+    .split-ring {
+      --ring-stroke: 54px;
+      background: linear-gradient(90deg, var(--fb-navy) 0 50%, var(--fb-white) 50% 100%);
+      border-radius: 50%;
+      height: 300px;
+      left: 50%;
+      mask: radial-gradient(farthest-side, transparent calc(100% - var(--ring-stroke) - 1px), #000 calc(100% - var(--ring-stroke)));
+      position: absolute;
+      top: 246px;
+      transform: translateX(-50%);
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--ring-stroke) - 1px), #000 calc(100% - var(--ring-stroke)));
+      width: 300px;
+      z-index: 4;
+    }
+
+    .manifest {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+      margin-top: 202px;
+      max-width: 410px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .manifest .lead {
+      color: var(--fb-red);
+      font-size: 24px;
+      font-weight: 600;
+      grid-column: 1 / -1;
+      line-height: 1.12;
+      margin: 0;
+    }
+
+    .manifest p:not(.lead) {
+      color: var(--fb-ink);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.42;
+      margin: 0;
+    }
+
+    .deck-menu {
+      list-style: none;
+      margin: 198px 0 0 138px;
+      padding: 0;
+      position: relative;
+      z-index: 5;
+    }
+
+    .deck-menu li {
+      align-items: baseline;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 44px 1fr;
+      margin-bottom: 20px;
+    }
+
+    .deck-menu span {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .deck-menu strong {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .name-lockup {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      line-height: 0.88;
+      text-transform: uppercase;
+    }
+
+    .name-lockup .red {
+      color: var(--fb-red);
+    }
+
+    .font-sample {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.22;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .slide-two {
+      background:
+        linear-gradient(90deg, var(--fb-navy) 0 28%, var(--fb-white) 28% 100%);
+      padding: 52px 70px;
+    }
+
+    .slide-two .meta-row {
+      color: var(--fb-navy);
+      display: flex;
+      justify-content: space-between;
+      padding-right: 190px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .slide-two .meta-row span:first-child {
+      color: var(--fb-white);
+    }
+
+    .slide-two h1 {
+      color: var(--fb-white);
+      font-size: 68px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      line-height: 0.88;
+      margin: 70px 0 0 -30px;
+      max-width: 318px;
+      position: relative;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .case-content {
+      bottom: 70px;
+      display: grid;
+      gap: 28px;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      left: 410px;
+      position: absolute;
+      right: 70px;
+      top: 88px;
+      z-index: 4;
+    }
+
+    .case-title {
+      grid-column: 1 / 6;
+    }
+
+    .case-title h2 {
+      color: var(--fb-navy);
+      font-size: 58px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      line-height: 0.95;
+      margin: 0 0 18px;
+      text-transform: uppercase;
+    }
+
+    .case-title p {
+      color: var(--fb-muted);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.32;
+      margin: 0;
+      max-width: 530px;
+    }
+
+    .metric {
+      border-top: 10px solid var(--fb-red);
+      grid-column: span 2;
+      padding-top: 16px;
+    }
+
+    .metric strong {
+      color: var(--fb-navy);
+      display: block;
+      font-size: 54px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 0.9;
+    }
+
+    .metric span {
+      color: var(--fb-muted);
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+
+    .process {
+      align-self: end;
+      display: grid;
+      gap: 18px;
+      grid-column: 1 / -1;
+      grid-template-columns: 1.04fr 1fr 1.22fr 1fr;
+      min-height: 116px;
+      position: relative;
+    }
+
+    .process::before {
+      background: var(--fb-red);
+      content: "";
+      height: 9px;
+      left: 0;
+      opacity: 0.95;
+      position: absolute;
+      top: -18px;
+      width: 178px;
+    }
+
+    .process div {
+      min-height: 116px;
+      min-width: 0;
+      overflow: hidden;
+      padding: 48px 8px 0 0;
+      position: relative;
+    }
+
+    .process div::before {
+      background: var(--fb-red);
+      content: "";
+      height: 5px;
+      left: 2px;
+      opacity: 0.72;
+      position: absolute;
+      top: 42px;
+      width: 52px;
+    }
+
+    .process div:nth-child(2)::before {
+      width: 34px;
+    }
+
+    .process div:nth-child(3)::before {
+      width: 68px;
+    }
+
+    .process div:nth-child(4)::before {
+      width: 28px;
+    }
+
+    .process b {
+      color: rgba(3, 9, 54, 0.08);
+      display: block;
+      font-size: 104px;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      line-height: 0.78;
+      margin: 0;
+      position: absolute;
+      right: 8px;
+      top: -2px;
+      z-index: 0;
+    }
+
+    .process div:first-child b {
+      color: rgba(255, 77, 74, 0.38);
+    }
+
+    .process span {
+      color: var(--fb-navy);
+      display: block;
+      font-size: 15px;
+      font-weight: 900;
+      line-height: 1.02;
+      max-width: 156px;
+      position: relative;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .giant-arc {
+      border: 86px solid var(--fb-red);
+      border-radius: 50%;
+      height: 430px;
+      position: absolute;
+      right: -210px;
+      top: -132px;
+      width: 430px;
+      z-index: 1;
+    }
+
+    .slide-footer {
+      align-items: flex-end;
+      display: flex;
+      font-size: 12px;
+      font-weight: 800;
+      justify-content: space-between;
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+      position: relative;
+      text-transform: uppercase;
+      z-index: 6;
+    }
+
+    .nav {
+      align-items: center;
+      background: rgba(3, 9, 54, 0.92);
+      bottom: 18px;
+      color: white;
+      display: flex;
+      gap: 8px;
+      left: 50%;
+      padding: 8px;
+      position: fixed;
+      transform: translateX(-50%);
+      z-index: 20;
+    }
+
+    .nav button {
+      background: white;
+      border: 0;
+      color: var(--fb-navy);
+      cursor: pointer;
+      font: 900 12px/1 var(--fb-font);
+      height: 32px;
+      letter-spacing: 0.08em;
+      padding: 0 14px;
+      text-transform: uppercase;
+    }
+
+    .nav span {
+      font: 800 12px/1 var(--fb-font);
+      min-width: 46px;
+      text-align: center;
+    }
+
+    body.qa .nav {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <section class="slide slide-one active" data-slide="1">
+    <div class="slide-grid">
+      <div class="deck-pane">
+        <div class="fb-meta">
+          <span>Portfolio / 2026</span>
+          <span>Futura System</span>
+        </div>
+        <h1 class="cropped-word left">FUTU</h1>
+        <div class="manifest">
+          <p class="lead">A geometric portfolio system for sharp identities, editorial screens, and confident launch decks.</p>
+          <p>Built from split fields, heavy circles, cropped type, and compact text blocks. The page behaves like a poster, but the content stays editable and structured.</p>
+          <p>Use the loud geometry for first impressions. For deeper content, reduce the scale and let the grid carry the rhythm.</p>
+        </div>
+        <div class="slide-footer">
+          <div class="name-lockup">Nina<br><span class="red">Keller</span></div>
+          <div>Digital Identity<br>Editorial Systems<br>Interface Direction</div>
+        </div>
+      </div>
+      <div class="deck-pane">
+        <div class="fb-meta">
+          <span>Selected Work</span>
+          <span>Two Slide Example</span>
+        </div>
+        <h1 class="cropped-word right">RA</h1>
+        <ul class="deck-menu">
+          <li><span>01</span><strong>Editorial</strong></li>
+          <li><span>02</span><strong>Product</strong></li>
+          <li><span>03</span><strong>Motion</strong></li>
+          <li><span>04</span><strong>Identity</strong></li>
+        </ul>
+        <div class="slide-footer">
+          <span></span>
+          <div class="font-sample">ABCDEFGHIJKLM<br>NOPQRSTUVWXYZ<br>0123456789</div>
+        </div>
+      </div>
+    </div>
+    <div class="split-ring"></div>
+  </section>
+
+  <section class="slide slide-two" data-slide="2">
+    <div class="giant-arc"></div>
+    <div class="meta-row fb-meta">
+      <span>Case Study / 02</span>
+      <span>Brand System Prototype</span>
+    </div>
+    <h1>One grid.<br>Four moves.</h1>
+    <div class="case-content">
+      <div class="case-title">
+        <h2>Launch kit for an independent studio.</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. The system turns a small set of geometric rules into repeatable pages, decks, and campaign frames.</p>
+      </div>
+      <div class="metric">
+        <strong>12</strong>
+        <span>Reusable layout modules</span>
+      </div>
+      <div class="metric">
+        <strong>03</strong>
+        <span>Core campaign formats</span>
+      </div>
+      <div class="process">
+        <div><b>01</b><span>Split the field</span></div>
+        <div><b>02</b><span>Crop the word</span></div>
+        <div><b>03</b><span>Anchor with geometry</span></div>
+        <div><b>04</b><span>Let the grid speak</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="nav" aria-label="Slide navigation">
+    <button type="button" data-dir="-1">Prev</button>
+    <span id="counter">01 / 02</span>
+    <button type="button" data-dir="1">Next</button>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const params = new URLSearchParams(window.location.search);
+    let current = Math.max(0, Math.min(slides.length - 1, Number(params.get("slide") || 1) - 1));
+
+    if (params.get("qa") === "1") {
+      document.body.classList.add("qa");
+    }
+
+    function showSlide(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+      document.getElementById("counter").textContent = `${String(current + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+    }
+
+    document.querySelectorAll(".nav button").forEach((button) => {
+      button.addEventListener("click", () => showSlide(current + Number(button.dataset.dir)));
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") showSlide(current + 1);
+      if (event.key === "ArrowLeft") showSlide(current - 1);
+    });
+
+    showSlide(current);
+  </script>
+</body>
+</html>

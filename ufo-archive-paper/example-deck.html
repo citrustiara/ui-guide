@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UFO Archive Paper Example Deck</title>
+  <link rel="stylesheet" href="./tokens.css">
+</head>
+<body class="ua-deck-body">
+  <section class="ua-slide active" data-slide="1" aria-label="Slide 1">
+    <header class="ua-deck-top ua-deck-meta">
+      <span>UFO Archive Paper / 01</span>
+      <span>Reference copy deck</span>
+    </header>
+
+    <div class="ua-deck-pair">
+      <article class="ua-paper ua-deck-panel cover">
+        <h1 class="ua-wire-title ua-on-paper">
+          <span>Uniden-</span>
+          <span>tified</span>
+          <span>Flying</span>
+          <span>Object</span>
+        </h1>
+
+        <svg class="ua-trace ua-cover-orbit" viewBox="0 0 420 190" aria-hidden="true">
+          <ellipse cx="210" cy="95" rx="190" ry="54"></ellipse>
+        </svg>
+
+        <p class="ua-wire-title ua-sightings ua-on-paper">Sightings</p>
+      </article>
+
+      <article class="ua-paper ua-deck-panel report">
+        <div class="ua-on-paper">
+          <h1 class="ua-heavy-title">1965-07-03 Deception Island, Antarctica</h1>
+          <p class="ua-copy">At 7.20 P.M. nine meteorological observers watched in the sky a yellow-red object travelling at high speed. After 20 minutes, 17 people observed a lens-shaped disc.</p>
+        </div>
+
+        <svg class="ua-trace ua-report-orbits" viewBox="0 -70 500 720" aria-hidden="true">
+          <ellipse cx="250" cy="370" rx="230" ry="62"></ellipse>
+          <ellipse cx="250" cy="344" rx="230" ry="90"></ellipse>
+          <ellipse cx="250" cy="310" rx="236" ry="126"></ellipse>
+          <ellipse cx="250" cy="260" rx="244" ry="174"></ellipse>
+          <ellipse cx="250" cy="210" rx="252" ry="238"></ellipse>
+        </svg>
+      </article>
+    </div>
+  </section>
+
+  <section class="ua-slide ua-case-slide" data-slide="2" aria-label="Slide 2">
+    <header class="ua-deck-top ua-deck-meta">
+      <span>Evidence layout / 02</span>
+      <span>Black void, paper proof, orbital trace</span>
+    </header>
+
+    <article class="ua-paper ua-case-paper">
+      <h1 class="ua-heavy-title ua-on-paper">Witness file no. 17</h1>
+      <p class="ua-copy ua-on-paper">Use the paper block as an evidence packet: date, place, report, and a single motion trace. Keep every mark black, direct, and printable.</p>
+    </article>
+
+    <p class="ua-case-note">A deck slide can carry one report, one annotated motion system, and one compact index without becoming a standard presentation grid.</p>
+
+    <svg class="ua-trace ua-case-visual" viewBox="0 -156 720 792" aria-hidden="true">
+      <ellipse cx="360" cy="380" rx="308" ry="72"></ellipse>
+      <ellipse cx="360" cy="354" rx="318" ry="104"></ellipse>
+      <ellipse cx="360" cy="318" rx="326" ry="144"></ellipse>
+      <ellipse cx="360" cy="266" rx="334" ry="204"></ellipse>
+      <ellipse cx="360" cy="214" rx="340" ry="266"></ellipse>
+      <ellipse cx="360" cy="176" rx="345" ry="324"></ellipse>
+    </svg>
+
+    <section class="ua-case-index" aria-label="Deck usage notes">
+      <div>
+        <b>01</b>
+        <span>Poster cover or title break</span>
+      </div>
+      <div>
+        <b>02</b>
+        <span>Single report or case file</span>
+      </div>
+      <div>
+        <b>03</b>
+        <span>Motion trace as evidence</span>
+      </div>
+    </section>
+  </section>
+
+  <div class="ua-nav" aria-label="Slide navigation">
+    <button type="button" data-dir="-1">Prev</button>
+    <span id="counter">01 / 02</span>
+    <button type="button" data-dir="1">Next</button>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".ua-slide")];
+    const params = new URLSearchParams(window.location.search);
+    let current = Math.max(0, Math.min(slides.length - 1, Number(params.get("slide") || 1) - 1));
+
+    if (params.get("qa") === "1") {
+      document.body.classList.add("qa");
+    }
+
+    function showSlide(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+      document.getElementById("counter").textContent = `${String(current + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+    }
+
+    document.querySelectorAll(".ua-nav button").forEach((button) => {
+      button.addEventListener("click", () => showSlide(current + Number(button.dataset.dir)));
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") showSlide(current + 1);
+      if (event.key === "ArrowLeft") showSlide(current - 1);
+    });
+
+    showSlide(current);
+  </script>
+</body>
+</html>

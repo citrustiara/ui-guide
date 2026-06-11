@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swiss Grid Portfolio Home</title>
+  <link rel="stylesheet" href="./tokens.css">
+  <style>
+    body {
+      min-height: 100vh;
+    }
+
+    .site {
+      margin: 0 auto;
+      max-width: 1180px;
+      padding: 28px 32px 40px;
+    }
+
+    .topbar {
+      align-items: center;
+      border-bottom: 1px solid var(--sg-line);
+      display: flex;
+      justify-content: space-between;
+      min-height: 56px;
+    }
+
+    .brand {
+      font-family: var(--sg-font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      color: var(--sg-muted);
+      display: flex;
+      font-family: var(--sg-font-mono);
+      font-size: 12px;
+      gap: 24px;
+    }
+
+    .hero {
+      align-items: end;
+      display: grid;
+      gap: 32px;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      min-height: 340px;
+      padding: 54px 0 42px;
+    }
+
+    .hero-copy {
+      grid-column: 1 / span 7;
+    }
+
+    .hero-side {
+      border-left: 1px solid var(--sg-line);
+      grid-column: 9 / span 4;
+      padding-left: 28px;
+    }
+
+    h1 {
+      font-size: clamp(44px, 7vw, 78px);
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 0.96;
+    }
+
+    .lead {
+      font-size: 17px;
+      margin-top: 20px;
+      max-width: 620px;
+    }
+
+    .work {
+      border-top: 2px solid var(--sg-ink);
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      padding-top: 18px;
+    }
+
+    .project {
+      border-top: 1px solid var(--sg-line);
+      padding-top: 16px;
+    }
+
+    .project h2 {
+      font-size: 21px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin: 10px 0 12px;
+    }
+
+    .metric {
+      color: var(--sg-accent);
+      font-family: var(--sg-font-mono);
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1;
+      margin-top: 22px;
+    }
+
+    .footer {
+      align-items: center;
+      border-top: 1px solid var(--sg-line);
+      color: var(--sg-subtle);
+      display: flex;
+      font-family: var(--sg-font-mono);
+      font-size: 12px;
+      justify-content: space-between;
+      margin-top: 48px;
+      padding-top: 16px;
+    }
+
+    @media (max-width: 760px) {
+      .site {
+        padding: 20px 16px 32px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        display: block;
+        min-height: auto;
+        padding: 56px 0 44px;
+      }
+
+      .hero-side {
+        border-left: 0;
+        border-top: 1px solid var(--sg-line);
+        margin-top: 36px;
+        padding-left: 0;
+        padding-top: 18px;
+      }
+
+      .work {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    <header class="topbar">
+      <a class="brand" href="#">Marta Kowalska / Digital Systems</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#work">Work</a>
+        <a href="#method">Method</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="sg-kicker">Portfolio / Product design</span>
+          <h1>Interfaces for teams that read data under pressure.</h1>
+          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. I design compact dashboards, workflow tools and decision screens for B2B teams.</p>
+        </div>
+        <aside class="hero-side">
+          <span class="sg-status">Available Q3 2026</span>
+          <div class="metric">14</div>
+          <p style="margin-top:10px">product systems shipped across SaaS, fintech and operations.</p>
+        </aside>
+      </section>
+
+      <section class="work" id="work" aria-label="Selected work">
+        <article class="project">
+          <span class="sg-kicker">01 / SaaS</span>
+          <h2>Revenue operations console</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        </article>
+        <article class="project">
+          <span class="sg-kicker">02 / Fintech</span>
+          <h2>Risk review workflow</h2>
+          <p>Donec sed odio dui. Cras mattis consectetur purus sit amet fermentum.</p>
+        </article>
+        <article class="project">
+          <span class="sg-kicker">03 / Platform</span>
+          <h2>QA evidence dashboard</h2>
+          <p>Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact">
+      <span>portfolio@example.com</span>
+      <span>Swiss Grid / 2026</span>
+    </footer>
+  </div>
+</body>
+</html>

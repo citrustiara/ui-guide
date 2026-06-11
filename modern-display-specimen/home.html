@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modern Display Specimen Home</title>
+  <link rel="stylesheet" href="./tokens.css">
+  <style>
+    body {
+      background: var(--ds-ink);
+      color: var(--ds-ink);
+      font-family: var(--ds-font-body);
+    }
+
+    .sheet {
+      background: var(--ds-pearl);
+      border: var(--ds-rule) solid var(--ds-line);
+      display: grid;
+      grid-template-rows: 46px auto auto auto 48px;
+      margin: 0 auto;
+      min-height: 100vh;
+      overflow: hidden;
+      width: min(100%, 1600px);
+    }
+
+    .topline,
+    .footerline {
+      align-items: center;
+      border-bottom: var(--ds-rule) solid var(--ds-line);
+      display: grid;
+      font-family: var(--ds-font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      grid-template-columns: 140px 1fr 90px;
+      line-height: 1;
+      min-width: 0;
+      text-transform: uppercase;
+    }
+
+    .topline > *,
+    .footerline > * {
+      align-items: center;
+      border-right: var(--ds-rule) solid var(--ds-line);
+      display: flex;
+      height: 100%;
+      min-width: 0;
+      padding: 0 22px;
+    }
+
+    .topline > *:last-child,
+    .footerline > *:last-child {
+      border-right: 0;
+      justify-content: center;
+    }
+
+    .topline .center,
+    .footerline .center {
+      justify-content: center;
+    }
+
+    .display-stack {
+      display: grid;
+      grid-template-rows: repeat(3, minmax(118px, 1fr));
+    }
+
+    .display-row {
+      align-items: center;
+      border-bottom: var(--ds-rule) solid var(--ds-line);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 25%;
+      min-height: 150px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .display-row::after,
+    .info-grid::after {
+      background: var(--ds-line);
+      bottom: 0;
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      right: 25%;
+      top: 0;
+      width: var(--ds-rule);
+      z-index: 4;
+    }
+
+    .display-row.rust {
+      background: var(--ds-rust);
+      color: var(--ds-pearl);
+    }
+
+    .display-word {
+      font-family: var(--ds-font-display);
+      font-size: clamp(84px, 17vw, 244px);
+      font-weight: 900;
+      letter-spacing: -0.065em;
+      line-height: 0.72;
+      padding: 0 20px 10px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .symbol-cell {
+      align-items: center;
+      align-self: stretch;
+      display: grid;
+      font-family: var(--ds-font-display);
+      font-size: clamp(56px, 9vw, 136px);
+      font-weight: 900;
+      justify-items: center;
+      letter-spacing: -0.12em;
+      line-height: 0.72;
+      min-width: 0;
+      overflow: hidden;
+      text-transform: uppercase;
+    }
+
+    .info-grid {
+      border-bottom: var(--ds-rule) solid var(--ds-line);
+      display: grid;
+      grid-template-columns: 28% 23.5% 23.5% 25%;
+      min-height: 178px;
+      position: relative;
+    }
+
+    .info-cell {
+      border-right: var(--ds-rule) solid var(--ds-line);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      justify-content: space-between;
+      min-width: 0;
+      padding: 20px 22px;
+    }
+
+    .info-cell:last-child {
+      border-right: 0;
+    }
+
+    .info-cell:nth-child(3) {
+      border-right: 0;
+    }
+
+    .eyebrow {
+      font-family: var(--ds-font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      color: var(--ds-rust);
+      font-size: clamp(23px, 3.2vw, 42px);
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 0.94;
+      max-width: 760px;
+    }
+
+    .copy {
+      color: var(--ds-muted);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.44;
+    }
+
+    .index {
+      font-family: var(--ds-font-display);
+      font-size: clamp(42px, 7vw, 96px);
+      font-weight: 900;
+      letter-spacing: -0.07em;
+      line-height: 0.75;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: 28% 1fr;
+      min-height: 238px;
+    }
+
+    .work-title {
+      border-right: var(--ds-rule) solid var(--ds-line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px;
+    }
+
+    .work-title h2 {
+      font-family: var(--ds-font-display);
+      font-size: clamp(46px, 7vw, 94px);
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      line-height: 0.75;
+      text-transform: uppercase;
+    }
+
+    .work-list {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    .work-item {
+      align-items: center;
+      border-bottom: var(--ds-rule) solid var(--ds-line);
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 72px 1.1fr 1fr;
+      min-width: 0;
+      padding: 20px 24px;
+    }
+
+    .work-item:last-child {
+      border-bottom: 0;
+    }
+
+    .work-item b {
+      color: var(--ds-rust);
+      font-family: var(--ds-font-display);
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      line-height: 0.8;
+    }
+
+    .work-item h3 {
+      font-family: var(--ds-font-display);
+      font-size: clamp(23px, 2.8vw, 38px);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 0.85;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .footerline {
+      border-bottom: 0;
+      border-top: var(--ds-rule) solid var(--ds-line);
+      grid-template-columns: 140px 1fr 170px;
+    }
+
+    @media (max-width: 880px) {
+      .sheet {
+        display: block;
+      }
+
+      .topline,
+      .footerline {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .topline > *,
+      .footerline > * {
+        border-bottom: var(--ds-rule) solid var(--ds-line);
+        border-right: 0;
+        min-height: 42px;
+      }
+
+      .display-stack {
+        display: block;
+      }
+
+      .display-row {
+        display: block;
+        min-height: 118px;
+      }
+
+      .display-word {
+        font-size: clamp(76px, 22vw, 130px);
+        white-space: normal;
+      }
+
+      .symbol-cell {
+        border-left: 0;
+        border-top: var(--ds-rule) solid currentColor;
+        min-height: 92px;
+      }
+
+      .display-row::after,
+      .info-grid::after {
+        display: none;
+      }
+
+      .info-grid,
+      .work-grid,
+      .work-item {
+        grid-template-columns: 1fr;
+      }
+
+      .info-cell,
+      .work-title {
+        border-bottom: var(--ds-rule) solid var(--ds-line);
+        border-right: 0;
+      }
+
+      .work-item {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <header class="topline" aria-label="Specimen metadata">
+      <span>ZT</span>
+      <span class="center">Modern display portfolio</span>
+      <span>26</span>
+    </header>
+
+    <section class="display-stack" aria-labelledby="page-title">
+      <div class="display-row rust">
+        <h1 class="display-word" id="page-title">Archive</h1>
+        <div class="symbol-cell" aria-hidden="true">&lt;&gt;</div>
+      </div>
+      <div class="display-row">
+        <div class="display-word">Family</div>
+        <div class="symbol-cell" aria-hidden="true">24</div>
+      </div>
+      <div class="display-row">
+        <div class="display-word">Studio</div>
+        <div class="symbol-cell ds-rust-field" aria-hidden="true">ID</div>
+      </div>
+    </section>
+
+    <section class="info-grid" aria-label="Intro information">
+      <article class="info-cell">
+        <span class="eyebrow">Published by / Studio Index</span>
+        <p class="lead">Portfolio systems that look editorial, exact, and deliberately impossible to ignore.</p>
+      </article>
+      <article class="info-cell">
+        <span class="eyebrow">Direction</span>
+        <p class="copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere lectus sed massa luctus.</p>
+      </article>
+      <article class="info-cell">
+        <span class="eyebrow">Output</span>
+        <p class="copy">Identity pages, launch decks, type-led case studies, and small campaign systems.</p>
+      </article>
+      <article class="info-cell">
+        <span class="eyebrow">Collection no. 33</span>
+        <div class="index">09</div>
+      </article>
+    </section>
+
+    <section class="work-grid" aria-label="Selected work">
+      <div class="work-title">
+        <span class="eyebrow">Selected work</span>
+        <h2>Type<br>Index</h2>
+      </div>
+      <div class="work-list">
+        <article class="work-item">
+          <b>01</b>
+          <h3>Poster system for a launch week</h3>
+          <p class="copy">A modular campaign sheet with rules, symbols, and oversized product language.</p>
+        </article>
+        <article class="work-item">
+          <b>02</b>
+          <h3>Editorial portfolio identity</h3>
+          <p class="copy">A grid-based homepage and deck kit built for a small design practice.</p>
+        </article>
+        <article class="work-item">
+          <b>03</b>
+          <h3>Specimen deck for client reviews</h3>
+          <p class="copy">Two sharp layouts for presenting work without falling into generic slideware.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footerline">
+      <span>24</span>
+      <span class="center">Modern specimen system</span>
+      <span>Variable / static</span>
+    </footer>
+  </main>
+</body>
+</html>
